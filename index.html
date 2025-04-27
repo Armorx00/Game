@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+
+        input {
+            width: 100px;
+            height: 30px;
+            font-size: 1em;
+            margin-bottom: 10px;
+            text-align: center;
+
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <form action="" method="post">
+        <h1>Tic Tac Toe</h1>
+        <div class="board" id="board">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+        <script>
+            const board = document.getElementById('board');
+            const cells = document.querySelectorAll('.cell');
+            let currentPlayer = 'X';
+            const winningCombinations = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
+
+            cells.forEach(cell => {
+                cell.addEventListener('click', handleClick, { once: true });
+            });
+
+            function handleClick(e) {
+                const cell = e.target;
+                cell.textContent = currentPlayer;
+                if (checkWin(currentPlayer)) {
+                    setTimeout(() => alert(`${currentPlayer} wins!`), 10);
+                    resetGame();
+                } else if (isDraw()) {
+                    setTimeout(() => alert(`It's a draw!`), 10);
+                    resetGame();
+                } else {
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                }
+            }
+
+            function checkWin(player) {
+                return winningCombinations.some(combination => {
+                    return combination.every(index => {
+                        return cells[index].textContent === player;
+                    });
+                });
+            }
+
+            function isDraw() {
+                return [...cells].every(cell => {
+                    return cell.textContent === 'X' || cell.textContent === 'O';
+                });
+            }
+
+            function resetGame() {
+                cells.forEach(cell => {
+                    cell.textContent = '';
+                    cell.addEventListener('click', handleClick, { once: true });
+                });
+                currentPlayer = 'X';
+            }
+        </script>
+
+        <input type="reset" value="Reset" id="reset" onclick="alert('Board is cleared ')">
+    </form>
+</body>
+
+</html>
