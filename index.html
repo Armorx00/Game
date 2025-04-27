@@ -73,7 +73,7 @@
             function handleClick(e) {
                 const cell = e.target;
                 cell.textContent = currentPlayer;
-                if (checkWin(currentPlayer)) {
+                if (checkWin(x,y)) {
                     setTimeout(() => alert(`${currentPlayer} wins!`), 10);
                     resetGame();
                 } else if (isDraw()) {
