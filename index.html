@@ -145,6 +145,7 @@
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1>Tic Tac Toe</h1>
         <div class="status" id="status">X's turn</div>
@@ -257,6 +258,10 @@
                 
                 setTimeout(() => {
                     alert(`Player ${currentPlayer} wins!`);
+                    // Auto reset the board after win
+                    setTimeout(() => {
+                        resetGame();
+                    }, 500);
                 }, 100);
                 
                 return;
@@ -272,6 +277,10 @@
                 
                 setTimeout(() => {
                     alert("Game ended in a draw!");
+                    // Auto reset the board after draw
+                    setTimeout(() => {
+                        resetGame();
+                    }, 500);
                 }, 100);
             }
         }
@@ -295,5 +304,6 @@
             tiesDisplay.textContent = scores.ties;
         }
     </script>
+<h2>The Game is created with help of an AI</h2>
 </body>
 </html>
